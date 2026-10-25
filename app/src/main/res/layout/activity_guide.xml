@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            style="@style/BodyText"
+            android:text="아래 3단계를 한 번만 하면 됩니다. 끝나면 [시작] 버튼으로 SearXNG를 켤 수 있습니다."
+            android:textStyle="bold" />
+
+        <!-- 1단계 -->
+        <TextView
+            style="@style/SmallLabel"
+            android:text="1단계 · Termux 설치" />
+
+        <TextView
+            android:id="@+id/termuxStateText"
+            style="@style/BodyText"
+            android:text="확인 중…" />
+
+        <TextView
+            style="@style/BodyText"
+            android:layout_marginTop="6dp"
+            android:text="Play 스토어 버전은 이 방식으로 동작하지 않습니다. 반드시 F-Droid 버전을 설치하세요."
+            android:textColor="@color/danger" />
+
+        <Button
+            android:id="@+id/btnOpenFdroid"
+            style="@style/BigButton"
+            android:text="F-Droid에서 Termux 받기" />
+
+        <Button
+            android:id="@+id/btnOpenTermux"
+            style="@style/BigButton"
+            android:text="Termux 열기" />
+
+        <!-- 2단계 -->
+        <TextView
+            style="@style/SmallLabel"
+            android:text="2단계 · Termux에 외부 앱 제어 허용" />
+
+        <TextView
+            style="@style/BodyText"
+            android:text="Termux를 한 번 실행해 초기 설정이 끝난 뒤, 아래 명령 1줄을 Termux 창에 붙여넣고 Enter를 누르세요." />
+
+        <TextView
+            android:id="@+id/allowCommandText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#FFF2F2F2"
+            android:fontFamily="monospace"
+            android:padding="10dp"
+            android:textColor="@color/text"
+            android:textIsSelectable="true"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btnCopyCommand"
+            style="@style/BigButton"
+            android:text="명령 복사" />
+
+        <!-- 3단계 -->
+        <TextView
+            style="@style/SmallLabel"
+            android:text="3단계 · 권한 허용" />
+
+        <TextView
+            style="@style/BodyText"
+            android:text="아래 [앱 설정 열기]를 누르고, 권한 목록에서 &quot;Termux에서 명령 실행&quot;(또는 추가 권한 → Run commands in Termux environment)을 허용하세요." />
+
+        <Button
+            android:id="@+id/btnOpenAppSettings"
+            style="@style/BigButton"
+            android:text="앱 설정 열기" />
+
+        <Button
+            android:id="@+id/btnDone"
+            style="@style/BigButton"
+            android:text="설정을 마쳤습니다" />
+
+    </LinearLayout>
+</ScrollView>

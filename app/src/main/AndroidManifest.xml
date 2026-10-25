@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- SearXNG 상태 확인 및 로그 수신용 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 현재 와이파이 IP 읽기 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 배터리 최적화 제외 요청 화면 이동 -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <!-- Termux 에 명령을 전달하기 위한 권한 (Termux 설치 후 사용자가 추가 권한에서 허용해야 함) -->
+    <uses-permission android:name="com.termux.permission.RUN_COMMAND" />
+
+    <!-- 안드로이드 11 이상 패키지 가시성: Termux 앱을 조회할 수 있게 합니다 -->
+    <queries>
+        <package android:name="com.termux" />
+        <package android:name="com.termux.boot" />
+    </queries>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".GuideActivity"
+            android:exported="false"
+            android:label="@string/guide_title" />
+
+    </application>
+
+</manifest>
