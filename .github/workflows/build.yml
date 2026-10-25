@@ -1,0 +1,61 @@
+name: Build Debug APK
+
+# main 브랜치에 push 하거나, Actions 탭에서 수동으로 실행하면 디버그 APK 를 만듭니다.
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 저장소 파일 가져오기
+        uses: actions/checkout@v4
+
+      - name: JDK 17 준비
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Android SDK 준비
+        uses: android-actions/setup-android@v3
+
+      - name: 필요한 SDK 구성요소 설치
+        run: |
+          sdkmanager "platforms;android-36" "build-tools;36.0.0" "platform-tools"
+
+      # gradlew 파일을 저장소에 넣지 않았으므로 Gradle 을 직접 설치합니다.
+      - name: Gradle 설치
+        run: |
+          wget -q https://services.gradle.org/distributions/gradle-8.14.6-bin.zip -O gradle.zip
+          unzip -q gradle.zip
+          echo "GRADLE_BIN=$PWD/gradle-8.14.6/bin/gradle" >> "$GITHUB_ENV"
+
+      - name: 캐시 준비
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle.kts', 'gradle.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+
+      - name: 디버그 APK 빌드
+        run: "$GRADLE_BIN assembleDebug --no-daemon"
+
+      - name: APK 파일 이름 정리
+        run: |
+          mkdir -p output
+          cp app/build/outputs/apk/debug/app-debug.apk output/SearXNG-Runner-debug.apk
+          ls -lh output
+
+      - name: APK 업로드 (Artifacts)
+        uses: actions/upload-artifact@v4
+        with:
+          name: SearXNG-Runner-debug-apk
+          path: output/SearXNG-Runner-debug.apk
+          retention-days: 90
